@@ -1,5 +1,5 @@
 ### Hi there 👋
-
+![](https://raw.githubusercontent.com/davidwushi1145/davidwushi1145/main/assets/github-contribution-grid-snake.svg)
 <!--
 **davidwushi1145/davidwushi1145** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
