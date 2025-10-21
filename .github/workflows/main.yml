@@ -1,11 +1,9 @@
 name: Metrics
 on:
-  # Schedule daily updates
   schedule: [{cron: "0 0 * * *"}]
-  # (optional) Run workflow manually
   workflow_dispatch:
-  # (optional) Run workflow when pushing on master/main
   push: {branches: ["master", "main"]}
+  
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
@@ -14,7 +12,9 @@ jobs:
     permissions:
       contents: write
     steps:
-      # Step 1: Generate metrics SVG
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
       - name: Generate metrics
         uses: lowlighter/metrics@latest
         with:
@@ -26,17 +26,15 @@ jobs:
           plugin_wakatime_limit: 4
           plugin_wakatime_url: https://waka.wushiqwq.cn
           plugin_wakatime_user: wushi
+          output_action: none
           filename: github-metrics.svg
-          # Don't commit yet, just generate
-          config_output: github-metrics.svg
           
-      # Step 2: Prepare distribution directory
       - name: Prepare dist directory
         run: |
           mkdir -p dist
-          mv github-metrics.svg dist/ || cp github-metrics.svg dist/
+          cp github-metrics.svg dist/github-metrics.svg
+          ls -la dist/
           
-      # Step 3: Force push to moutput branch (clean every time)
       - name: Deploy to moutput branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
